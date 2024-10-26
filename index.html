@@ -1,0 +1,142 @@
+# Sample data for destinations with travel information
+destinations = {
+    "Paris": {
+        "country": "France",
+        "attractions": ["Eiffel Tower", "Louvre Museum", "Notre-Dame Cathedral", "Seine River Cruise"],
+        "accommodations": ["Hotel de Crillon", "Le Bristol", "The Ritz Paris", "Hotel Lutetia"],
+        "transportation": ["Metro", "Bus", "Taxi", "Bicycle Rental"],
+        "best_time": "April to October",
+    },
+    "Rome": {
+        "country": "Italy",
+        "attractions": ["Colosseum", "Vatican Museums", "Pantheon", "Trevi Fountain"],
+        "accommodations": ["Hotel Eden", "Rome Cavalieri", "The St. Regis Rome", "Hotel de Russie"],
+        "transportation": ["Metro", "Bus", "Taxi", "Walkable areas"],
+        "best_time": "April to June or September to October",
+    },
+    "Tokyo": {
+        "country": "Japan",
+        "attractions": ["Shibuya Crossing", "Tokyo Tower", "Asakusa Temple", "Mount Fuji"],
+        "accommodations": ["Park Hyatt Tokyo", "Shangri-La Hotel", "Hotel New Otani", "The Ritz-Carlton"],
+        "transportation": ["Train (JR Line)", "Subway", "Taxi", "Bicycle Rental"],
+        "best_time": "March to May or September to November",
+    },
+    "New York": {
+        "country": "USA",
+        "attractions": ["Statue of Liberty", "Times Square", "Central Park", "Broadway"],
+        "accommodations": ["The Plaza Hotel", "The Ritz-Carlton", "The St. Regis", "The Standard"],
+        "transportation": ["Subway", "Bus", "Taxi", "Bike Share"],
+        "best_time": "April to June or September to November",
+    },
+}
+
+# Function to search for a destination and get relevant information
+def search_destination(destination_name):
+    destination_info = destinations.get(destination_name)
+    
+    if destination_info:
+        print(f"\n--- Destination: {destination_name} ---")
+        print(f"Country: {destination_info['country']}")
+        print(f"Best Time to Visit: {destination_info['best_time']}")
+    else:
+        print(f"Sorry, no information available for '{destination_name}'.")
+
+# Function to plan an itinerary for a given destination
+def plan_itinerary(destination_name):
+    if destination_name not in destinations:
+        print(f"Sorry, we don't have information for '{destination_name}'.")
+        return
+
+    destination_info = destinations[destination_name]
+    print(f"\n--- Planning Itinerary for {destination_name}, {destination_info['country']} ---")
+    print("Highlights you might want to consider:")
+    for highlight in destination_info['attractions']:
+        print(f"- {highlight}")
+    
+    days = int(input("How many days will you spend at this destination? "))
+    itinerary = []
+    for day in range(1, days + 1):
+        print(f"\n--- Day {day} ---")
+        daily_activities = []
+        while True:
+            activity = input("Enter an activity or type 'done' to finish this day: ")
+            if activity.lower() == "done":
+                break
+            daily_activities.append(activity)
+        itinerary.append({"day": day, "activities": daily_activities})
+    
+    print("\n--- Your Custom Itinerary ---")
+    for day_plan in itinerary:
+        print(f"\nDay {day_plan['day']}:")
+        for activity in day_plan['activities']:
+            print(f"- {activity}")
+    print("\nEnjoy your trip!")
+
+# Function to display travel information for a destination
+def travel_info(destination_name):
+    if destination_name not in destinations:
+        print(f"Sorry, we don't have information for '{destination_name}'.")
+        return
+
+    destination_info = destinations[destination_name]
+    print(f"\n--- Travel Information for {destination_name}, {destination_info['country']} ---")
+    
+    while True:
+        print("\nWhat information would you like to see?")
+        print("1. Attractions")
+        print("2. Accommodations")
+        print("3. Transportation")
+        print("4. Best Time to Visit")
+        print("5. Exit")
+        
+        choice = input("Enter the number of your choice: ")
+
+        if choice == "1":
+            print("\nTop Attractions:")
+            for attraction in destination_info["attractions"]:
+                print(f"- {attraction}")
+        elif choice == "2":
+            print("\nRecommended Accommodations:")
+            for accommodation in destination_info["accommodations"]:
+                print(f"- {accommodation}")
+        elif choice == "3":
+            print("\nTransportation Options:")
+            for transport in destination_info["transportation"]:
+                print(f"- {transport}")
+        elif choice == "4":
+            print(f"\nBest Time to Visit: {destination_info['best_time']}")
+        elif choice == "5":
+            print("Exiting the Travel Information section.")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+
+# Main function to handle the menu for all features
+def main():
+    print("Welcome to the Travel Guide!")
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Search Destination")
+        print("2. Plan Itinerary")
+        print("3. Access Travel Information")
+        print("4. Exit")
+        
+        choice = input("Enter the number of your choice: ")
+
+        if choice == "1":
+            destination_name = input("\nEnter the destination you want to search for: ")
+            search_destination(destination_name)
+        elif choice == "2":
+            destination_name = input("\nEnter the destination for your itinerary: ")
+            plan_itinerary(destination_name)
+        elif choice == "3":
+            destination_name = input("\nEnter the destination for travel information: ")
+            travel_info(destination_name)
+        elif choice == "4":
+            print("Exiting the Travel Guide. Have a great day!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+# Run the main function
+main()
